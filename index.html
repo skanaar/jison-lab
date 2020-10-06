@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Jison Lab</title>
+    <link rel="shortcut icon" href="favicon.png">
+    <link rel=stylesheet href="codemirror/codemirror.css">
+    <link rel=stylesheet href="codemirror/solarized.jison.css">
+    <link rel=stylesheet href="style.css">
+  </head>
+  <body>
+    <div class="wrap">
+
+      <div class="left">
+        <textarea id="grammar" spellcheck="false"></textarea>
+      </div>
+
+      <div class="right">
+        <textarea id="source" spellcheck="false"></textarea>
+        <div id="output">
+          <pre id="out"></pre>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <div class=toolbar-group>
+          <span class=logo>Jison Lab</span>
+          <select id="file-chooser"></select>
+          <button id="delete-file">Remove</button>
+          <button id="save-as">Save As...</button>
+        </div>
+        <div class=toolbar-group>
+          <button id="parse_btn">Parse</button>
+          <div id=message-field class=message-field>Parsing...</div>
+        </div>
+        <div class=toolbar-group>
+          <button onclick="document.body.classList.value = 'text-s'">S</button>
+          <button onclick="document.body.classList.value = 'text-m'">M</button>
+          <button onclick="document.body.classList.value = 'text-l'">L</button>
+          <a href="http://zaach.github.io/jison">About Jison</a>
+        </div>
+      </div>
+
+    </div>
+
+    <script src="codemirror/codemirror-compressed.js"></script>
+    <script src="codemirror/javascript.mode.js"></script>
+    <script src="jison.js"></script>
+    <script src=stringify.js></script>
+    <script src="app.js"></script>
+    <script>
+
+      var editor = CodeMirror.fromTextArea(document.getElementById('grammar'), {
+        lineNumbers: false,
+        mode: 'javascript',
+        matchBrackets: true,
+        theme: 'solarized light',
+        keyMap: 'sublime'
+      });
+
+      var elements = {
+        source: document.getElementById('source'),
+        process_btn: document.getElementById('process_btn'),
+        parse_btn: document.getElementById('parse_btn'),
+        examples: document.getElementById('examples'),
+        message: document.getElementById('message-field'),
+        output: document.getElementById('out'),
+        file_chooser: document.getElementById('file-chooser'),
+        save_as: document.getElementById('save-as'),
+        delete_file: document.getElementById('delete-file')
+      }
+
+      new App(editor, elements)
+
+    </script>
+
+  </body>
+</html>

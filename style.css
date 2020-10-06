@@ -1,0 +1,151 @@
+:root {
+  --toolbar-size: 30px;
+  --edge-color: #ccc;
+}
+  
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  background: #fff;
+  font-family: Helvetica, Calibri, sans-serif;
+  font-size: 14px;
+}
+body.text-s { font-size: 12px; }
+body.text-m { font-size: 14px; }
+body.text-l { font-size: 16px; }
+.wrap {
+  position: relative;
+  background: #fff;
+  min-height: 100%;
+}
+.left {
+  position: absolute;
+  left: 0;
+  right: 50%;
+  top: var(--toolbar-size);
+  bottom: 0;
+}
+textarea {
+  border: 0 solid var(--edge-color);
+  outline: none;
+  font-family: Consolas, Menlo, monospace;
+  font-size: inherit;
+  padding: 10px;
+}
+.right {
+  position: absolute;
+  left: 50%;
+  right: 0;
+  top: var(--toolbar-size);
+  bottom: 0;
+  border: 0 solid var(--edge-color);
+  border-left-width: 1px;
+}
+#grammar {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  color: #444;
+}
+#output {
+  height: 70%;
+  overflow-y: scroll;
+  background: #333;
+  color: #ddd;
+}
+textarea#source {
+  box-sizing: border-box;
+  display: block;
+  height: 30%;
+  width: 100%;
+  margin: 0;
+  border-bottom-width: 1px;
+}
+#out {
+  white-space: pre-wrap;
+}
+pre {
+  box-sizing: border-box;
+  white-space: normal;
+  padding: 5px;
+  margin: 0;
+  font-family: Consolas, Menlo, monospace;
+  font-size: inherit;
+  overflow: auto;
+}
+.toolbar {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: var(--toolbar-size);
+  padding: 4px 4px 0 4px;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--edge-color);
+  background: #f8f8f8;
+  box-shadow: 0 1px 2px #0001;
+  font-size: 12px;
+}
+.logo {
+  font-family: "Avenir Heavy";
+  padding: 0 10px 0 4px;
+  font-size: 14px;
+}
+.message-field, button, select {
+  -wekbit-appearance: none;
+  -wekbit-appearance: none;
+  appearance: none;
+  border: 1px solid #ccc;
+  display: inline-block;
+  background: #fff;
+  box-shadow: 0 1px 2px #0001;
+  border-radius: 4px;
+  font-size: 11px;
+  color: #333;
+  padding: 3px 8px;
+  line-height: 13px;
+  text-align: center;
+  box-sizing: border-box;
+  letter-spacing: 0.5px;
+  outline: none;
+}
+.message-field {
+  width: 300px;
+}
+select {
+  min-width: 120px;
+  padding-right: 20px;
+  background-image:
+    linear-gradient(45deg, transparent 50%, gray 50%),
+    linear-gradient(135deg, gray 50%, transparent 50%),
+    linear-gradient(to right, #ccc, #ccc);
+  background-position:
+    calc(100% - 10px) calc(8px),
+    calc(100% - 5px) calc(8px),
+    calc(100% - 20px) 0.25em;
+  background-size: 5px 5px, 5px 5px, 1px 13px;
+  background-repeat: no-repeat;
+}
+button:active {
+  user-select: none;
+  background: lightblue;
+}
+button[disabled] {
+  color: #aaa;
+  border-color: #ddd;
+  box-shadow: none;
+}
+.message-field.warning {
+  background: #fff8f8;
+  border-color: #faa;
+}
+.CodeMirror {
+  height: 100%;
+  font-family: Menlo, monospace;
+  padding-left: 5px;
+}
