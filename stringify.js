@@ -80,7 +80,7 @@ function stringify(obj, options) {
   }(obj, '', 0))
 
   if (get(options, 'omitKeyQuotes', true))
-    return output.replace(/"([a-z]+)": ?/g, '$1:')
+    return output.replace(/"([a-zA-Z_0-9]+)": ?/g, '$1:')
 
   return output
 }

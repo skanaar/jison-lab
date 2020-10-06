@@ -26,17 +26,19 @@
         <div class=toolbar-group>
           <span class=logo>Jison Lab</span>
           <select id="file-chooser"></select>
-          <button id="delete-file">Remove</button>
+          <button id="delete-file">Discard</button>
           <button id="save-as">Save As...</button>
         </div>
-        <div class=toolbar-group>
-          <button id="parse_btn">Parse</button>
+        <div class="toolbar-group toolbar-message">
           <div id=message-field class=message-field>Parsing...</div>
+          <button id="parse_btn">Run</button>
         </div>
         <div class=toolbar-group>
-          <button onclick="document.body.classList.value = 'text-s'">S</button>
-          <button onclick="document.body.classList.value = 'text-m'">M</button>
-          <button onclick="document.body.classList.value = 'text-l'">L</button>
+          <select onchange="document.body.classList.value = this.value">
+            <option value=text-s>Small</option>
+            <option selected value=text-m>Medium</option>
+            <option value=text-l>Large</option>
+          </select>
           <a href="http://zaach.github.io/jison">About Jison</a>
         </div>
       </div>

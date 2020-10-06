@@ -82,6 +82,7 @@ function App(editor, elements) {
   })
   elements.save_as.addEventListener('click', () => {
     var name = prompt('Save this grammar as:')
+    if (!name) return;
     var files = jsonParse(localStorage['jison.files']) || []
     files.push(name)
     localStorage['jison.files'] = JSON.stringify(Array.from(new Set(files)))
