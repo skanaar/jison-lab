@@ -33,7 +33,11 @@ function App(editor, elements) {
     return localStorage['jison.file/'+currentFile+'/'+res] = src;
   }
   function load(res) {
-    return localStorage['jison.file/'+currentFile+'/'+res] || '';
+    var src = localStorage['jison.file/'+currentFile+'/'+res]
+    if (currentFile == 'Home' && !src) {
+      return (res == 'grammar') ? defaultGrammar() : defaultSource()
+    }
+    return src
   }
   
   function jsonParse(input) {
@@ -64,6 +68,7 @@ function App(editor, elements) {
     currentFile = e.target.value;
     elements.delete_file.disabled = (currentFile == 'Home')
     init()
+    run()
   })
   elements.delete_file.addEventListener('click', () => {
     var question = 'This will remove the file "'+currentFile+'".\n\nAre you sure?';
@@ -148,5 +153,72 @@ function App(editor, elements) {
       elements.message.innerText = "⚠️ Failed to parse test source";
       elements.message.classList.add('warning');
     }
+  }
+  
+  function defaultSource() {
+    return '1*(4+5)/PI'
+  }
+  
+  function defaultGrammar() {
+    return `/* description: Parses end executes mathematical expressions. */
+
+%{
+function factorial(n){
+  return n==0 ? 1 : factorial(n-1) * n;
+}
+%}
+
+/* lexical grammar */
+%lex
+%%
+
+s+                   /* skip whitespace */
+[0-9]+("."[0-9]+)?  return 'NUMBER'
+"*"                   return '*'
+"/"                   return '/'
+"-"                   return '-'
+"+"                   return '+'
+"^"                   return '^'
+"!"                   return '!'
+"%"                   return '%'
+"("                   return '('
+")"                   return ')'
+"PI"                  return 'PI'
+"E"                   return 'E'
+<<EOF>>               return 'EOF'
+.                     return 'INVALID'
+
+/lex
+
+/* operator associations and precedence */
+
+%left '+' '-'
+%left '*' '/'
+%left '^'
+%right '!'
+%right '%'
+%left UMINUS
+
+%start expressions
+
+%% /* language grammar */
+
+expressions 
+  : e EOF { return $e; } ;
+
+e
+  : e '+' e            {$$ = $1+$3; }
+  | e '-' e            {$$ = $1-$3; }
+  | e '*' e            {$$ = $1*$3; }
+  | e '/' e            {$$ = $1/$3; }
+  | e '^' e            {$$ = Math.pow($1, $3); }
+  | e '!'              {$$ = factorial($1); }
+  | e '%'              {$$ = $1/100; }
+  | '-' e %prec UMINUS {$$ = -$2; }
+  | '(' e ')'          {$$ = $2; }
+  | NUMBER             {$$ = Number(yytext); }
+  | E                  {$$ = Math.E; }
+  | PI                 {$$ = Math.PI; }
+  ;`
   }
 }
