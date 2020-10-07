@@ -117,21 +117,6 @@ pre {
 .message-field {
   width: 300px;
 }
-.toolbar-message {
-  position: relative;
-}
-.toolbar-message button {
-  position: absolute;
-  right: 0;
-  border-radius: 0 2px 2px 0;
-  box-shadow: none;
-  background: transparent;
-  margin: 1px;
-  padding: 2.5px 6px;
-  border-right: none;
-  border-bottom: none;
-  border-top: 1px solid transparent;
-}
 select {
   padding-right: 22px;
   background-image:
@@ -162,4 +147,27 @@ button[disabled] {
   height: 100%;
   font-family: Menlo, monospace;
   padding-left: 5px;
+}
+.help-grammar, .help-source, .help-output {
+  position: absolute;
+  max-width: 200px;
+  background: #f8f8f8;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 80%;
+  z-index: 5;
+  box-shadow: 0 1px 4px #0001;
+}
+.help-grammar {
+  right: calc( 50% + 10px );
+  top: 40px;
+}
+.help-source {
+  right: 10px;
+  top: 40px;
+}
+.help-output {
+  right: 10px;
+  top: calc( 30% + 40px );
 }
