@@ -1,5 +1,13 @@
+export function jsonParse(input) {
+  try {
+    return JSON.parse(input)
+  } catch (e) {
+    return undefined
+  }
+}
+
 // options: { compact: boolean, indent: string? }
-function stringify(obj, options) {
+export function stringify(obj, options) {
   // Note: This regex matches even invalid JSON strings, but since we’re
   // working on the output of `JSON.stringify` we know that only valid strings
   // are present (unless the user supplied a weird `options.indent` but in
@@ -12,13 +20,13 @@ function stringify(obj, options) {
   }
 
   function get(options, name, defaultValue) {
-    return (name in options ? options[name] : defaultValue)
+    return name in options ? options[name] : defaultValue
   }
   options = options || {}
   var indent = JSON.stringify([1], null, get(options, 'indent', 2)).slice(2, -3)
-  var maxLength = (indent === '' ? Infinity : get(options, 'maxLength', 80))
+  var maxLength = indent === '' ? Infinity : get(options, 'maxLength', 80)
 
-  var output = (function _stringify (obj, currentIndent, reserved) {
+  var output = (function _stringify(obj, currentIndent, reserved) {
     if (obj && typeof obj.toJSON === 'function') {
       obj = obj.toJSON()
     }
@@ -46,7 +54,7 @@ function stringify(obj, options) {
       var items = []
       var delimiters
       var comma = function (array, index) {
-        return (index === array.length - 1 ? 0 : 1)
+        return index === array.length - 1 ? 0 : 1
       }
 
       if (Array.isArray(obj)) {
@@ -59,8 +67,11 @@ function stringify(obj, options) {
       } else {
         Object.keys(obj).forEach(function (key, index, array) {
           var keyPart = JSON.stringify(key) + ': '
-          var value = _stringify(obj[key], nextIndent,
-                                 keyPart.length + comma(array, index))
+          var value = _stringify(
+            obj[key],
+            nextIndent,
+            keyPart.length + comma(array, index)
+          )
           if (value !== undefined) {
             items.push(keyPart + value)
           }
@@ -72,12 +83,12 @@ function stringify(obj, options) {
         return [
           delimiters[0],
           indent + items.join(',\n' + nextIndent),
-          delimiters[1]
+          delimiters[1],
         ].join('\n' + currentIndent)
       }
     }
     return string
-  }(obj, '', 0))
+  })(obj, '', 0)
 
   if (get(options, 'omitKeyQuotes', true))
     return output.replace(/"([a-zA-Z_0-9]+)": ?/g, '$1:')

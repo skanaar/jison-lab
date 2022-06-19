@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Jison Lab</title>
+    <title>Parser Lab</title>
     <link rel="shortcut icon" href="favicon.png">
     <link rel=stylesheet href="codemirror/codemirror.css">
     <link rel=stylesheet href="codemirror/solarized.jison.css">
@@ -24,7 +24,7 @@
 
       <div class="toolbar">
         <div class=toolbar-group>
-          <span class=logo>Jison Lab</span>
+          <span class=logo>Parser Lab</span>
           <select id="file-chooser"></select>
           <button id="delete-file">Discard</button>
           <button id="save-as">Save As...</button>
@@ -43,7 +43,7 @@
         </div>
       </div>
       
-      <div class=help-grammar>Welcome to <a href="https://www.github.com/skanaar/jison-lab">Jison Lab</a>. A tool for developing parsers.<br>Enter a <a href="http://zaach.github.io/jison">Jison</a> grammar in this box.</div>
+      <div class=help-grammar>Welcome to <a href="https://www.github.com/skanaar/parser-lab">Parser Lab</a>. A tool for developing parsers.<br>Enter a grammar in this box.</div>
       <div class=help-source>Enter code to be parsed by the grammar in this box.</div>
       <div class=help-output>The parser output appear here</div>
 
@@ -52,9 +52,10 @@
     <script src="codemirror/codemirror-compressed.js"></script>
     <script src="codemirror/javascript.mode.js"></script>
     <script src="jison.js"></script>
-    <script src=stringify.js></script>
-    <script src="app.js"></script>
-    <script>
+    <script src="https://unpkg.com/peggy"></script>
+    <script type="module">
+      import { App } from './app.js'
+      import { peggyGenerator as peggy } from './peggy-generator.js'
 
       var editor = CodeMirror.fromTextArea(document.getElementById('grammar'), {
         lineNumbers: false,
@@ -76,7 +77,7 @@
         delete_file: document.getElementById('delete-file')
       }
 
-      new App(editor, elements)
+      new App(peggy, editor, elements)
 
     </script>
 
